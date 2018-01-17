@@ -1,0 +1,14 @@
+<%= form_with scope: :partner,url: partners_path, local: true do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.label :country %><br>
+    <%= form.text_field :country %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
