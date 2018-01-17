@@ -12,4 +12,8 @@ class PartnersController < ApplicationController
 	def show
 		@partner = Partner.find(params[:id])
 	end
+
+	def index
+		@partner_list = Partner.last(20)
+	end
 end
