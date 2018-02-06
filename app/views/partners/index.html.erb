@@ -1,5 +1,8 @@
-<% @partner_list.each do |t| %>
+<% @partner_list.each do |partner| %>
   <ul>
-    <li>Name: <%= t.name %> </li><li>Country: <%= t.country %></li>
+  	<li>ID: <%= partner.id %> </li>
+    <li>Name: <%= partner.name %> </li>
+    <li>Country: <%= partner.country %></li>
+    <li>Uuid: <%= partner.uuid %></li>
    </ul>
   <% end %>

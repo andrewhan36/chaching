@@ -4,7 +4,7 @@ class PartnersController < ApplicationController
 
 	def create
 	  @partner = Partner.new(params[:partner].permit(:name, :country))
- 
+ 	  @partner.uuid = SecureRandom.uuid
 	  @partner.save
 	  redirect_to @partner
 	end

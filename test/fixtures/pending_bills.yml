@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount_cents: 1.5
+  amount_currency: MyString
+  payement_uuid: MyString
+  title: MyString
+  descriptionon: MyString
+  payment_date: 2018-01-21 14:31:26
+
+two:
+  amount_cents: 1.5
+  amount_currency: MyString
+  payement_uuid: MyString
+  title: MyString
+  descriptionon: MyString
+  payment_date: 2018-01-21 14:31:26

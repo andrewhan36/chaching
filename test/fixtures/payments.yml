@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payer_uuid: MyString
+  payee_uuid: MyString
+  bill_uuid: MyString
+
+two:
+  payer_uuid: MyString
+  payee_uuid: MyString
+  bill_uuid: MyString

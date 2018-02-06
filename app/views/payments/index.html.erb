@@ -1,0 +1,7 @@
+<% @payments_list.each do |payment| %>
+  <ul>
+  	<li>ID: <%= payment.id %> </li>
+  	<li>Uuid: <%= payment.uuid %> </li>
+    <li>Bill: <%= payment.bill_uuid %> </li>
+   </ul>
+  <% end %>
