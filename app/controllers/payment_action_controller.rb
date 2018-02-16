@@ -1,8 +1,5 @@
 class PaymentActionController < ApplicationController
   def index
-
-  	Merchant.first.delay.test
-
   	@payment_types = ["rent", "maintenance", "cleaning", "association fee", "parking fee"]
   	@status_types = ["approved", "pending"]
   	@payments = Payment.all.reverse_order
