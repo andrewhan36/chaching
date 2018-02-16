@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
+  # include MyGate
   def index
-  	@user = User.first
+  	@mygate = MyGate::Client.instance.test_method
   end
 end

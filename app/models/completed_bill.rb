@@ -1,2 +1,0 @@
-class CompletedBill < ApplicationRecord
-end

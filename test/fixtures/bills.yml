@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  creator_uuid: MyString
+  payer_uuid: MyString
+  payee_uuid: MyString
+  payment_due: 2018-02-12 20:58:45
+  itemizations: 
+  amount: 1.5
+  currency: MyString
+  status: MyString
+  payment_uuid: MyString
+
+two:
+  type: 
+  creator_uuid: MyString
+  payer_uuid: MyString
+  payee_uuid: MyString
+  payment_due: 2018-02-12 20:58:45
+  itemizations: 
+  amount: 1.5
+  currency: MyString
+  status: MyString
+  payment_uuid: MyString

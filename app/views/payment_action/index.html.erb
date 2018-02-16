@@ -1,0 +1,70 @@
+<h1>Create a payment</h1>
+
+<%= form_with scope: :payment_request, url: '/payments', local: true do |form| %>
+<p>
+	<%= form.label :from %><br>
+	<%= form.collection_select(:user_uuid, User.all, :uuid, :name, {:prompt => 'Choose a user'}, {:required => true}) %>
+</p>
+<p>
+    <%= form.label :to %><br>
+	<%= form.collection_select(:merchant_uuid, Merchant.all, :uuid, :name, {:prompt => 'Choose a merchant'}, {:required => true}) %>
+</p>
+<p>
+    <%= form.label :type %><br>
+    <%= form.collection_select(:payment_type, @payment_types, :to_s, :to_s, {:prompt => 'Choose a type'}, {:include_blank => false, :required => true}) %>
+</p>
+<p>
+    <%= form.label :status %><br>
+    <%= form.collection_select(:status_type, @status_types, :to_s, :to_s, {:prompt => 'Choose a type'}, {:include_blank => false, :required => true}) %>
+</p>
+<p>
+    <%= form.label :amount %><br>
+    <%= form.number_field :amount, class: :text_field, step: :any %>
+</p>
+<p>
+    <%= form.label :recurring %><br>
+    <%= form.check_box :recurring %>
+</p>
+<p>
+	<%= form.submit "PAY!"%>
+</p>
+<% end %>
+
+<h1>Approve a bill</h1>
+<%= form_with scope: :process_pending_request, url: '/payments/approve', local: true do |form| %>
+<p>
+    <%= form.label :pending_bill %><br>
+    <%= form.collection_select(:bill_uuid, @pending_bills, :uuid, :uuid, {:prompt => 'Choose a bill'}, {:include_blank => false, :required => true}) %>
+</p>
+<p>
+  <%= form.submit "APPROVE!"%>
+</p>
+<% end %>
+
+<% @models.each do |name, model_list| %>
+<h1> <%= name %> </h1>
+<table>
+  <tr>
+    <% model_list.first.attributes.keys.each do |attribute| %>
+      <th> <%= attribute%> </th>
+    <% end unless model_list.blank?%> 
+  </tr>
+  <% model_list.each do |model| %>
+    <tr>
+      <% model.attributes.values.each do |value| %>
+        <td> <%= value%> </td>
+      <% end %>
+    </tr>  
+  <% end %>  
+</table>
+<% end %>
+
+
+<style type="text/css">
+
+table, th, td {
+   border: 1px solid black;
+   padding: 2px;
+}
+
+</style>

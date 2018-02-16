@@ -10,23 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121223126) do
+ActiveRecord::Schema.define(version: 20180213060752) do
 
-  create_table "completed_bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.float "amount_cents", limit: 24
-    t.string "amount_currency"
-    t.string "payement_uuid"
-    t.string "title"
-    t.string "description"
-    t.datetime "payment_date"
+  create_table "bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "bill_type"
+    t.string "creator_uuid"
+    t.string "payer_uuid"
+    t.string "payee_uuid"
+    t.datetime "payment_due"
+    t.float "amount", limit: 24
+    t.string "currency"
+    t.string "status"
+    t.string "payment_uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "partners", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.string "country"
+  create_table "merchants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "uuid"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "merchant_uuid"
+    t.string "gateway_token"
+    t.string "gateway_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "user_uuid"
+    t.string "gateway_token"
+    t.string "gateway_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,17 +55,8 @@ ActiveRecord::Schema.define(version: 20180121223126) do
   create_table "payments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "uuid"
     t.string "bill_uuid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pending_bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.float "amount_cents", limit: 24
-    t.string "amount_currency"
-    t.string "payement_uuid"
-    t.string "title"
-    t.string "description"
-    t.datetime "payment_date"
+    t.string "gateway_payment_id"
+    t.string "gateway"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

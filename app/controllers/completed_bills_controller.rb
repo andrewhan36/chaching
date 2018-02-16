@@ -1,2 +1,0 @@
-class CompletedBillsController < ApplicationController
-end

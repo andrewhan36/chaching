@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uuid: MyString
+  merchant_uuid: MyString
+  gateway_token: MyString
+  gateway_type: MyString
+
+two:
+  uuid: MyString
+  merchant_uuid: MyString
+  gateway_token: MyString
+  gateway_type: MyString

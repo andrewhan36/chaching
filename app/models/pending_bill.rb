@@ -1,2 +1,0 @@
-class PendingBill < ApplicationRecord
-end
