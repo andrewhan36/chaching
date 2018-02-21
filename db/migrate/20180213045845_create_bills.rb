@@ -11,6 +11,7 @@ class CreateBills < ActiveRecord::Migration[5.1]
       t.string :currency
       t.string :status
       t.string :payment_uuid
+      t.boolean :recurring
 
       t.timestamps
     end

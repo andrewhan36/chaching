@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213060752) do
+ActiveRecord::Schema.define(version: 20180221045929) do
 
   create_table "bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "uuid"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180213060752) do
     t.string "currency"
     t.string "status"
     t.string "payment_uuid"
+    t.boolean "recurring"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,6 +58,15 @@ ActiveRecord::Schema.define(version: 20180213060752) do
     t.string "bill_uuid"
     t.string "gateway_payment_id"
     t.string "gateway"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recurring_bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "bill_uuid"
+    t.datetime "trigger_datetime"
+    t.integer "creation_interval_seconds"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

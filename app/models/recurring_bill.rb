@@ -1,0 +1,2 @@
+class RecurringBill < ApplicationRecord
+end
