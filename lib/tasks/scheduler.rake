@@ -10,3 +10,12 @@ task :process_recurring_bills => :environment do
   	triggered_bills = RecurringBill.all.select { |bill| bill.trigger_datetime <= time_now }
   	triggered_bills.each { |bill| process_recurring_bill(bill) }
 end
+
+task :process_payouts => :environment do
+	time_now = Time.now
+	payee_uuids = Payee.where('next_payout < ?', time_now).pluck(:uuid)
+	puts payee_uuids
+	payee_uuids.each do |payee_uuid|
+		process_payouts(payee_uuid)
+	end
+end

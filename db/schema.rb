@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221045929) do
+ActiveRecord::Schema.define(version: 20180223061904) do
 
   create_table "bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "uuid"
@@ -38,8 +38,11 @@ ActiveRecord::Schema.define(version: 20180221045929) do
   create_table "payees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "uuid"
     t.string "merchant_uuid"
-    t.string "gateway_token"
-    t.string "gateway_type"
+    t.string "payin_gateway_token"
+    t.string "payin_gateway_type"
+    t.string "payout_gateway_token"
+    t.string "payout_gateway_type"
+    t.datetime "next_payout"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,6 +61,24 @@ ActiveRecord::Schema.define(version: 20180221045929) do
     t.string "bill_uuid"
     t.string "gateway_payment_id"
     t.string "gateway"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payouts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "payee_uuid"
+    t.float "amount", limit: 24
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pending_payouts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "payee_uuid"
+    t.float "amount", limit: 24
+    t.string "currency"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

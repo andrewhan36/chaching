@@ -11,6 +11,8 @@ class PaymentActionController < ApplicationController
   	@payees = Payee.all
 	@users = User.all
   	@merchants = Merchant.all
+  	@payouts = Payout.all
+  	@pending_payouts = PendingPayout.all
 
   	@models = {
   		"Payments" => @payments,
@@ -21,6 +23,8 @@ class PaymentActionController < ApplicationController
   		"Merchants" => @merchants,
 		"Payers" => @payers,
   		"Payees" => @payees,
+  		"Payouts" => @payouts,
+  		"Pending Payouts" => @pending_payouts,
   	 }
   end
 
