@@ -10,91 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180223061904) do
+ActiveRecord::Schema.define(version: 20180221045929) do
 
   create_table "bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
     t.string "bill_type"
-    t.string "creator_uuid"
-    t.string "payer_uuid"
-    t.string "payee_uuid"
-    t.datetime "payment_due"
+    t.string "creator_id"
+    t.string "payer_id"
+    t.string "recipient_id"
     t.float "amount", limit: 24
     t.string "currency"
     t.string "status"
-    t.string "payment_uuid"
-    t.boolean "recurring"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "merchants", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "payees", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "merchant_uuid"
-    t.string "payin_gateway_token"
-    t.string "payin_gateway_type"
-    t.string "payout_gateway_token"
-    t.string "payout_gateway_type"
-    t.datetime "next_payout"
+    t.string "notes"
+    t.boolean "completion_deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "payers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "user_uuid"
-    t.string "gateway_token"
+    t.string "user_id"
+    t.string "gateway_account_id"
     t.string "gateway_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "payments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "bill_uuid"
-    t.string "gateway_payment_id"
-    t.string "gateway"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "payouts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "payee_uuid"
-    t.float "amount", limit: 24
-    t.string "currency"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "pending_payouts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "payee_uuid"
-    t.float "amount", limit: 24
-    t.string "currency"
+  create_table "recipients", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "user_id"
+    t.string "gateway_account_id"
+    t.string "gateway_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "recurring_bills", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "bill_uuid"
-    t.datetime "trigger_datetime"
-    t.integer "creation_interval_seconds"
+    t.string "bill_id"
+    t.datetime "start"
+    t.integer "interval_seconds"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "uuid"
-    t.string "name"
+  create_table "transactions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "payer_id"
+    t.string "recipient_id"
+    t.string "bill_id"
+    t.string "gateway_transaction_id"
+    t.string "gateway_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

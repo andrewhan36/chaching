@@ -1,0 +1,35 @@
+default: &default
+  encoding: utf8
+  adapter: mysql2
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: axesspoi_dev_africa_development
+  username: axesspoi_africa
+  password: 
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: axesspoi_dev_africa_test
+  username: axesspoi_africa
+  password:
+
+production:
+  <<: *default
+  database: axesspoi_dev_africa
+  username: axesspoi_africa
+  password: &)m7a!C@9F@T
+  host: ap1.axesspoint.net
+  port: 3306
+
+
+
+axesspoi_africa@localhost
+
+GRANT ALL PRIVILEGES ON *.* TO 'axesspoi_africa'@'%' IDENTIFIED BY '&)m7a!C@9F@T';
+GRANT ALL PRIVILEGES ON *.* TO <username>@'%' IDENTIFIED BY '<password>';

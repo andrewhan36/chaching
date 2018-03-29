@@ -1,2 +1,0 @@
-class Merchant < ApplicationRecord
-end

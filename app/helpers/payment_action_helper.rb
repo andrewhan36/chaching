@@ -1,6 +1,20 @@
 module PaymentActionHelper
+
+  def one_time_payment_action(payment_type, creator_uuid, user_uuid, merchant_uuid, amount)
+    new_bill = Bill.new(
+      bill_type: "one time payment", 
+      creator_uuid: user_uuid, 
+      payer_uuid: user_uuid,
+      payee_uuid:merchant_uuid,
+      amount:amount,
+      currency: "USD",
+      status: "approved",
+      recurring: false)
+    new_bill.save
+  end
+
 	def create_payment(bill_uuid)
-    	new_payment = Payment.new(
+    new_payment = Payment.new(
   		bill_uuid: bill_uuid,
   		gateway_payment_id: SecureRandom.uuid,
   		gateway: "braintree"
