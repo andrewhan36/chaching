@@ -51,7 +51,7 @@ To fetch all payers
 
 To create a payer  
 ```
-POST /1.0/payer`
+POST /1.0/payer
 
 --data
 {
@@ -79,6 +79,24 @@ To fetch a specific recipient with id
 
 To fetch all recipients  
 `GET /1.0/recipient`
+
+To create a recipient 
+```
+POST /1.0/recipient
+
+--data
+{
+	request_token: (idempotent token for every request)
+	user_id:
+	country:
+	dob_day: (1-31)
+	dob_month: (1-12)
+	dob_yeaar: (4 digits)
+	business_name:
+	first_name:
+	last_name:
+}
+```
 
 ### Transaction
 Transactions demonstrate a movement of funds. It mainly tells you how much money was involved and which users were involved. Every transactin will have a bill associated to it for more business logic details about it.
