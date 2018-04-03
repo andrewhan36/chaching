@@ -98,6 +98,17 @@ POST /1.0/recipient
 }
 ```
 
+To add payout to a recipient 
+```
+POST /1.0/recipient/:user_id/external_account
+
+--data
+{
+	request_token: (idempotent token for every request)
+	external_account_token: (stripe external account token)
+}
+```
+
 ### Transaction
 Transactions demonstrate a movement of funds. It mainly tells you how much money was involved and which users were involved. Every transactin will have a bill associated to it for more business logic details about it.
 ```
