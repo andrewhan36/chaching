@@ -1,15 +1,6 @@
 Rails.application.routes.draw do
-  get 'main/test'
-
-  get 'home/index'
-
-  get 'payments', to: 'payment_action#index'
-  post 'payments', to: 'payment_action#create'
-  post 'payments/approve', to: 'payment_action#approve'
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'main#test'
-
 
   scope '/1.0' do
   	get '/bill/:id', to: 'main#bill', as: 'bill'
@@ -24,10 +15,10 @@ Rails.application.routes.draw do
     get '/recurring_bill', to: 'main#recurring_bill_list', as: 'recurring_bill_list'
     get '/transaction', to: 'main#transaction_list', as: 'transaction_list'
 
-    post '/bill', to: 'main#create_bill', as: 'create_bill'
+    # post '/bill', to: 'main#create_bill', as: 'create_bill'
     post '/payer', to: 'main#create_payer', as: 'create_payer'
     post '/recipient', to: 'main#create_recipient', as: 'create_recipient'
-    post '/recurring_bill', to: 'main#create_recurring_bill', as: 'create_recurring_bill'
+    # post '/recurring_bill', to: 'main#create_recurring_bill', as: 'create_recurring_bill'
     post '/transaction', to: 'main#create_transaction', as: 'create_transaction'
   end
 end

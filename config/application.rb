@@ -17,5 +17,7 @@ module Chaching
     config.autoload_paths << Rails.root.join('app/clients')
 
     config.cache_store = :dalli_store
+
+    config.api_only = true
   end
 end
