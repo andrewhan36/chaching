@@ -1,5 +1,8 @@
 class MainController < ApplicationController
+  before_action :authenticate
   include StripeHelper
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
   def payer
   	render json: Payer.where(user_id: params[:id]).first
   end
@@ -41,7 +44,6 @@ class MainController < ApplicationController
   end
 
   def create_payer
-    verify_idempotence params[:request_token]
   	raise StandardError.new "Payer already exists!" if Payer.exists?(:user_id => params[:user_id])
 
 		stripe_account = create_stripe_customer(params[:email], params[:stripe_source_token])
@@ -55,7 +57,6 @@ class MainController < ApplicationController
   end
 
   def create_recipient
-    verify_idempotence params[:request_token]
   	raise StandardError.new "Recipient already exists!" if Recipient.exists?(:user_id => params[:user_id])
   		
 		stripe_account = create_stripe_merchant(
@@ -76,7 +77,6 @@ class MainController < ApplicationController
   end
 
   def add_recipient_payout
-    verify_idempotence params[:request_token]
     recipient = Recipient.where(user_id: params[:user_id]).first
     raise StandardError.new "Recipient doesnt exist!" if !recipient
     update_stripe_merchant_payout(recipient.gateway_account_id, params[:external_account_token])
@@ -84,7 +84,6 @@ class MainController < ApplicationController
   end
 
   def create_transaction
-    verify_idempotence params[:request_token]
   	stripe_source_token = params[:stripe_source_token]
     amount = params[:amount]
   	payer = Payer.where(user_id: params[:payer_id]).first
@@ -132,20 +131,22 @@ class MainController < ApplicationController
   	render json: transaction
   end
 
-  def verify_idempotence(token)
-    raise StandardError.new "Missing request token" if !token
-    raise StandardError.new "Detected duplicate request" if $cache.get(token)
-    $cache.set(token, 1)
-  end
-
-  def verify_request(token)
-    begin
-      parts = token.split("::")
-      raise if parts.count != 2
-      raise if parts[0] != $shared_secret
-      raise if !DateTime.parse(parts[1]).between?( 5.minutes.ago, Time.now )
-    rescue
-        raise StandardError.new "Invalid Request!"
+  protected
+  def authenticate
+    authenticate_or_request_with_http_token do |token, options|
+      begin
+        raise if !token
+        raise if $cache.get(token)
+        $cache.set(token, 1)
+        parts = token.split("::")
+        raise if parts.count != 2
+        raise if parts[0] != $shared_secret
+        raise if !DateTime.parse(parts[1]).between?( 5.minutes.ago, Time.now )
+        puts "end"
+      rescue
+          raise StandardError.new "Invalid Request!"
+      end
+      true
     end
   end
 end
