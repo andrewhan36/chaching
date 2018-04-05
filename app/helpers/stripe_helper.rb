@@ -30,6 +30,11 @@ module StripeHelper
   	})
   end
 
+  def update_stripe_merchant_payout(stripe_token, external_account_token)
+    account = Stripe::Account.retrieve(stripe_token)
+    account.external_accounts.create(external_account: external_account_token)
+  end
+
   def create_stripe_payment(amount, customer_id, source_account_id, destination_account_id)
     charge = Stripe::Charge.create({
       :amount => amount,

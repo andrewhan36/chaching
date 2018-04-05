@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     # post '/bill', to: 'main#create_bill', as: 'create_bill'
     post '/payer', to: 'main#create_payer', as: 'create_payer'
     post '/recipient', to: 'main#create_recipient', as: 'create_recipient'
+    post '/recipient/:user_id/external_account', to: 'main#add_recipient_payout', as: 'add_recipient_payout'
     # post '/recurring_bill', to: 'main#create_recurring_bill', as: 'create_recurring_bill'
     post '/transaction', to: 'main#create_transaction', as: 'create_transaction'
   end

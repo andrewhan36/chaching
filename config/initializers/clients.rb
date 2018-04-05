@@ -5,4 +5,6 @@ $cache = Dalli::Client.new(ENV['MEMCACHE_SERVERS'], {
     :expires_in => 1.day, 
     :compress => true })
 
+$shared_secret = ENV['SHARED_SECRET']
+
 Stripe.api_key = ENV['STRIPE_API_KEY']

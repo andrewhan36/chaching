@@ -75,6 +75,14 @@ class MainController < ApplicationController
   	render json: recipient
   end
 
+  def add_recipient_payout
+    verify_idempotence params[:request_token]
+    recipient = Recipient.where(user_id: params[:user_id]).first
+    raise StandardError.new "Recipient doesnt exist!" if !recipient
+    update_stripe_merchant_payout(recipient.gateway_account_id, params[:external_account_token])
+    render json: recipient
+  end
+
   def create_transaction
     verify_idempotence params[:request_token]
   	stripe_source_token = params[:stripe_source_token]
@@ -128,5 +136,16 @@ class MainController < ApplicationController
     raise StandardError.new "Missing request token" if !token
     raise StandardError.new "Detected duplicate request" if $cache.get(token)
     $cache.set(token, 1)
+  end
+
+  def verify_request(token)
+    begin
+      parts = token.split("::")
+      raise if parts.count != 2
+      raise if parts[0] != $shared_secret
+      raise if !DateTime.parse(parts[1]).between?( 5.minutes.ago, Time.now )
+    rescue
+        raise StandardError.new "Invalid Request!"
+    end
   end
 end
