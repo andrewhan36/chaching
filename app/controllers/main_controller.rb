@@ -101,6 +101,8 @@ class MainController < ApplicationController
       payer.gateway_account_id = customer.id
       payer.gateway_type = "stripe"
       payer.save
+
+      stripe_source_token = nil
     end
     
   	bill = Bill.create(
