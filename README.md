@@ -55,7 +55,6 @@ POST /1.0/payer
 
 --data
 {
-	request_token: (idempotent token for every request)
 	user_id:
 	email:
 	stripe_source_token: (stripe payment token)
@@ -86,7 +85,6 @@ POST /1.0/recipient
 
 --data
 {
-	request_token: (idempotent token for every request)
 	user_id:
 	country:
 	dob_day: (1-31)
@@ -104,7 +102,6 @@ POST /1.0/recipient/:user_id/external_account
 
 --data
 {
-	request_token: (idempotent token for every request)
 	external_account_token: (stripe external account token)
 }
 ```
@@ -135,7 +132,6 @@ POST /1.0/transaction`
 
 --data
 {
-	request_token: (idempotent token for every request)
 	payer_id: (if payer exists)
 	payer_email: (if new payer)
 	stripe_source_token: (stripe payment token)
