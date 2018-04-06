@@ -134,13 +134,18 @@ class MainController < ApplicationController
   protected
   def authenticate
     authenticate_or_request_with_http_token do |token, options|
-      return false if !token
-      return false if $cache.get(token)
-      $cache.set(token, 1)
-      parts = token.split("::")
-      return false if parts.count != 2
-      return false if parts[0] != $shared_secret
-      return false if !DateTime.parse(parts[1]).between?( 5.minutes.ago, Time.now )
+      begin
+        raise if !token
+        raise if $cache.get(token)
+        $cache.set(token, 1)
+        parts = token.split("::")
+        raise if parts.count != 2
+        raise if parts[0] != $shared_secret
+        raise if !DateTime.parse(parts[1]).between?( 5.minutes.ago, Time.now )
+        puts "end"
+      rescue
+          raise StandardError.new "Invalid Request!"
+      end
       true
     end
   end
