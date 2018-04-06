@@ -83,6 +83,13 @@ class MainController < ApplicationController
     render json: recipient
   end
 
+  def indicate_recipient_tos_agreement
+    recipient = Recipient.where(user_id: params[:user_id]).first
+    raise StandardError.new "Recipient doesnt exist!" if !recipient
+    indicate_stripe_merchant_tos_agreement(recipient.gateway_account_id, request.ip)
+    render json: recipient
+  end
+
   def create_transaction
   	stripe_source_token = params[:stripe_source_token]
     amount = params[:amount]

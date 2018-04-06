@@ -43,4 +43,11 @@ module StripeHelper
       :source => source_account_id,
       :destination => {:account => destination_account_id}})
   end
+
+  def stripe_merchant_accept_tos(stripe_token, ip)
+    acct = Stripe::Account.retrieve(stripe_token)
+    acct.tos_acceptance.date = Time.now.to_i
+    acct.tos_acceptance.ip = ip
+    acct.save
+  end
 end
