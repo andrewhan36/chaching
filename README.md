@@ -96,12 +96,24 @@ POST /1.0/recipient
 }
 ```
 
-To add payout to a recipient 
+To indicate a tos agreement for a recipient 
+```
+POST /1.0/recipient/:user_id/accept_tos
+
+--data
+{
+	user_id:
+	external_account_token: (stripe external account token)
+}
+```
+
+To add external account for a recipient 
 ```
 POST /1.0/recipient/:user_id/external_account
 
 --data
 {
+	user_id:
 	external_account_token: (stripe external account token)
 }
 ```
